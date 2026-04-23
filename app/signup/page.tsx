@@ -45,23 +45,24 @@ export default function SignUpPage() {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/api/users/register", {
+      const response = await fetch("http://localhost:5000/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, password }),
+        body: JSON.stringify({ name, email, password, confirmPassword }),
       })
 
       const data = await response.json()
 
       if (!response.ok) {
-        setError(data.error || "Registration failed.")
+        setError(data.message || data.error || "Registration failed.")
       } else {
-        sessionStorage.setItem("token", data.token || "")
-        sessionStorage.setItem("user", JSON.stringify({ name, email }))
+        const user = data.data?.user || { name, email }
+        const token = data.data?.accessToken || ""
+
+        localStorage.setItem("token", token)
+        sessionStorage.setItem("user", JSON.stringify(user))
         window.dispatchEvent(new Event("storage"))
 
-
-        
         router.push("/dashboard")
       }
     } catch (err) {

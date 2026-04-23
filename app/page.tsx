@@ -288,10 +288,10 @@ export default function Home() {
               </motion.div>
 
               <motion.div variants={fadeInUp} className="relative inline-block group mb-4">
-                <motion.h1 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900 leading-tight">
+                <motion.h1 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight">
                   Find Your Perfect Career Path with{" "}
                   <motion.span
-                    className="relative inline-block font-comfortaa bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent cursor-pointer"
+                    className="relative inline-block font-comfortaa bg-gradient-to-r from-yellow-300 via-rose-400 to-cyan-400 bg-clip-text text-transparent cursor-pointer"
                     whileHover={{ scale: 1.05 }}
                     transition={{ duration: 0.3 }}
                   >

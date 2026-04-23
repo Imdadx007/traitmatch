@@ -23,7 +23,7 @@ export default function SignInPage() {
     setError(null)
 
     try {
-      const response = await fetch("http://localhost:5000/api/users/login", {
+      const response = await fetch("http://localhost:5000/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -32,13 +32,14 @@ export default function SignInPage() {
       const data = await response.json()
 
       if (!response.ok) {
-        setError(data.error || "Login failed")
+        setError(data.message || data.error || "Login failed")
       } else {
-        // ✅ Save name & email from response
-        sessionStorage.setItem("user", JSON.stringify({ name: data.name, email: data.email }))
-        localStorage.setItem("token", data.token)
+        const user = data.data?.user || { email }
+        const token = data.data?.accessToken || ""
+
+        sessionStorage.setItem("user", JSON.stringify(user))
+        localStorage.setItem("token", token)
         window.dispatchEvent(new Event("storage"))
-        
 
         router.push("/dashboard")
       }
